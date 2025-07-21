@@ -75,7 +75,7 @@ def estimate_food_kcal(food_text):
     if not food_text:
         return 0
     items = food_text.split("、")
-    return len(items) * 400  # 仮で1品約400kcal
+    return len(items) * 300  # 仮で1品約400kcal
 
 # --- 初期化処理：初回のみ計算・保存 ---
 if api_key:
