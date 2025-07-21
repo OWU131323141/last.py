@@ -84,6 +84,17 @@ if api_key:
     if st.session_state.estimated_food_kcal is None and food_today:
         st.session_state.estimated_food_kcal = estimate_food_kcal(food_today)
 
+# --- 再計算ボタンを追加 ---
+if st.sidebar.button("カロリー目標を再計算する"):
+    st.session_state.target_kcal = calculate_target_calories(weight, goal_weight, deadline)
+    st.success("カロリー目標が再計算されました！🎯")
+
+# --- サイドバーに目標・実績・残りカロリー表示 ---
+if st.session_state.target_kcal:
+    st.sidebar.markdown(f"🎯 **今日の目標摂取カロリー**: `{st.session_state.target_kcal} kcal`")
+if st.session_state.estimated_food_kcal is not None:
+    st.sidebar.markdown(f"🍱 **今日食べた量（推定）**: `{st.session_state.estimated_food_kcal} kcal`")
+
 # --- サイドバーに目標・実績・残りカロリー表示 ---
 if st.session_state.target_kcal:
     st.sidebar.markdown(f"🎯 **今日の目標摂取カロリー**: `{st.session_state.target_kcal} kcal`")
