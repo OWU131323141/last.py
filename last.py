@@ -4,7 +4,7 @@ import datetime
 
 # --- ページ設定 ---
 st.set_page_config(page_title="カロりん", layout="centered")
-st.markdown("### カロりん！<br>今これ食べてもいいかな？", unsafe_allow_html=True)
+st.markdown("カロりん！<br>今これ食べてもいいかな？", unsafe_allow_html=True)
 
 st.markdown("""
 やさしい栄養士AI「**カロりん**」があなたの食事をサポートします🍓  
