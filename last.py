@@ -66,23 +66,41 @@ def calculate_target_calories(weight, goal_weight, deadline):
 
 # --- プロンプト生成 ---
 def build_prompt(food_today, exercise, user_question, target_kcal):
-    return f"""
+    history_text = ""
+    for chat in st.session_state.chat_history:
+        if chat["role"] == "user":
+            history_text += f"ユーザー: {chat['content']}\n"
+        else:
+            history_text += f"カロりん: {chat['content']}\n"
+
+    prompt = f"""
 あなたはやさしく親しみやすい栄養士AI「カロりん」です。
+以下のユーザー情報とチャット履歴を参考にして、今の質問に答えてください。
 
 # 今日食べたもの:
 {food_today}
+
 # 今日の運動量:
 {exercise}
-# 目標摂取カロリー:
+
+# 目標摂取カロリー（1日）:
 {target_kcal} kcal
-# 質問:
+
+# チャット履歴:
+{history_text}
+
+# 今の質問:
 「{user_question}」を今食べてもいいですか？
 
-以下を守ってください：
-- 食べ物の推定カロリーを考慮
-- カロリー目標と比較して、やさしいアドバイス
-- 可能なら「代替案」も提案
+以下のルールを守ってください:
+- 推定カロリーを含めた判断
+- 目標カロリーと比較
+- 理由をわかりやすく
+- やさしく親しみやすい口調で回答
+- 食べていい時：「〜してみてね♪」など
+- 控えた方がいい時：「代わりに〇〇はどう？」など
 """
+    return prompt.strip()
 
 # --- 回答処理 ---
 if api_key and user_question:
