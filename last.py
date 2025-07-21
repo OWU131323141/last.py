@@ -110,8 +110,3 @@ if api_key and user_question:
 for chat in st.session_state.chat_history:
     with st.chat_message(chat["role"], avatar="🧑" if chat["role"] == "user" else "🍓"):
         st.markdown(chat["content"])
-
-# --- リセットボタン ---
-if st.button("🧹 チャット履歴をリセット"):
-    st.session_state.chat_history = []
-    st.success("リセットしました！✨")
