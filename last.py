@@ -84,11 +84,21 @@ if api_key:
     if st.session_state.estimated_food_kcal is None and food_today:
         st.session_state.estimated_food_kcal = estimate_food_kcal(food_today)
 
-# --- UIで表示 ---
+# --- サイドバーに目標・実績・残りカロリー表示 ---
 if st.session_state.target_kcal:
-    st.markdown(f"🎯 **今日の目標摂取カロリー**: `{st.session_state.target_kcal} kcal`")
+    st.sidebar.markdown(f"🎯 **今日の目標摂取カロリー**: `{st.session_state.target_kcal} kcal`")
 if st.session_state.estimated_food_kcal is not None:
-    st.markdown(f"🍱 **今日食べた量（推定）**: `{st.session_state.estimated_food_kcal} kcal`")
+    st.sidebar.markdown(f"🍱 **今日食べた量（推定）**: `{st.session_state.estimated_food_kcal} kcal`")
+
+# --- 残りカロリーと進捗バー ---
+if st.session_state.target_kcal and st.session_state.estimated_food_kcal is not None:
+    remaining_kcal = st.session_state.target_kcal - st.session_state.estimated_food_kcal
+    color = "green" if remaining_kcal > 0 else "red"
+    st.sidebar.markdown(f"🧮 **残り摂取可能カロリー**: <span style='color:{color}; font-weight:bold'>{remaining_kcal} kcal</span>", unsafe_allow_html=True)
+    
+    progress = st.session_state.estimated_food_kcal / st.session_state.target_kcal
+    st.sidebar.progress(min(progress, 1.0))
+
 
 # --- プロンプト作成 ---
 def build_prompt(food_today, exercise, user_question, target_kcal, food_kcal):
