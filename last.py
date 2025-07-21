@@ -6,7 +6,7 @@ import datetime
 st.set_page_config(page_title="カロりん", layout="centered")
 
 # --- タイトルと説明 ---
-st.title("🍓 カロりんと栄養チェック")
+st.title("カロりん！今これ食べていい？")
 st.markdown("やさしい栄養士AI「**カロりん**」があなたの食事をサポートします！")
 
 # --- APIキー入力 ---
