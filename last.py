@@ -95,12 +95,6 @@ if st.session_state.target_kcal:
 if st.session_state.estimated_food_kcal is not None:
     st.sidebar.markdown(f"🍱 **今日食べた量（推定）**: `{st.session_state.estimated_food_kcal} kcal`")
 
-# --- サイドバーに目標・実績・残りカロリー表示 ---
-if st.session_state.target_kcal:
-    st.sidebar.markdown(f"🎯 **今日の目標摂取カロリー**: `{st.session_state.target_kcal} kcal`")
-if st.session_state.estimated_food_kcal is not None:
-    st.sidebar.markdown(f"🍱 **今日食べた量（推定）**: `{st.session_state.estimated_food_kcal} kcal`")
-
 # --- 残りカロリーと進捗バー ---
 if st.session_state.target_kcal and st.session_state.estimated_food_kcal is not None:
     remaining_kcal = st.session_state.target_kcal - st.session_state.estimated_food_kcal
